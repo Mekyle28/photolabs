@@ -23,7 +23,7 @@ const App = () => {
   const newArray = (number) => {
     let array = [];
     for (let i = 0; i < number; i++) {
-      array.push(<PhotoListItem sampleData={sampleDataForPhotoListItem}/>)
+      array.push(<PhotoListItem key={i} sampleData={sampleDataForPhotoListItem}/>)
     }
     return array;
   }
