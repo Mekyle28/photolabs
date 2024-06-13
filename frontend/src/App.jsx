@@ -20,17 +20,9 @@ import './App.scss';
 // Note: Rendering a single component to build components in isolation
 const App = () => {
 
-  const newArray = (number) => {
-    let array = [];
-    for (let i = 0; i < number; i++) {
-      array.push(<PhotoListItem key={i} sampleData={sampleDataForPhotoListItem}/>)
-    }
-    return array;
-  }
+  const photos = [...Array(3)].map((_, i) => <PhotoListItem key={i} sampleData={sampleDataForPhotoListItem}/> );
 
-  const photos = newArray(3);
 
-  
   return (
     <div className="App">
       {photos}
