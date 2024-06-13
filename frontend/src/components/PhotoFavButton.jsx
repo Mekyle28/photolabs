@@ -3,13 +3,8 @@ import React, { useCallback, useState } from 'react';
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
-function PhotoFavButton() {
-  const [fav, setFav] = useState(false);
- 
-  // toggles between true and false prev is not whatever prev was. 
-  const clickHandler = (() => {
-      setFav(prev => !prev)
-  })
+function PhotoFavButton(props) {
+const {fav, clickHandler} = props
 
   return (
     <div onClick={clickHandler} className="photo-list__fav-icon">
