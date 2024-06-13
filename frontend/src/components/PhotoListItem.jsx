@@ -16,7 +16,7 @@ import PhotoFavButton from "./PhotoFavButton";
 
 
 const PhotoListItem = (props) => {
-  const {imageSource, profile, username, location} = props.sampleData
+  const {imageSource, profile, username, city, country} = props
 
   return (
     <div className="photo-list__item">
@@ -27,7 +27,7 @@ const PhotoListItem = (props) => {
         <img className="photo-list__user-profile" src={profile}/>
         <div className="photo-list__user-info">
           <p className="photo-list__user-name" >{username}</p>
-          <p className="photo-list__user-location">{location.city}, {location.country}</p>
+          <p className="photo-list__user-location">{city}, {country}</p>
         </div>
       </div>
     </div>
