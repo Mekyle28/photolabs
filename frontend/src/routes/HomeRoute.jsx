@@ -5,7 +5,7 @@ import '../styles/HomeRoute.scss';
 import { FavPhotoExist } from 'helpers/favPhoto';
 
 const HomeRoute = (props) => {
-  const {photos, topics} = props;
+  const {photos, topics, modalToggle} = props;
   
   const [fav , setFav] = useState({});
   
@@ -20,7 +20,7 @@ const HomeRoute = (props) => {
   return (
     <div className="home-route">
       <TopNavigation topics={topics} photos={photos} fav={fav} isFavPhotoExist={isFavPhotoExist}/>
-      <PhotoList photos={photos} fav={fav} clickHandler={clickHandler}/>
+      <PhotoList photos={photos} fav={fav} clickHandler={clickHandler} modalToggle={modalToggle}/>
     </div>
   );
 };

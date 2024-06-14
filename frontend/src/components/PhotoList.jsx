@@ -4,7 +4,7 @@ import PhotoListItem from "./PhotoListItem";
 
 
 const PhotoList = (props) => {
-const {photos, fav, clickHandler} = props;
+const {photos, fav, clickHandler, modalToggle} = props;
 
   const photoArray = photos.map((photo) => {
     return (
@@ -18,6 +18,7 @@ const {photos, fav, clickHandler} = props;
         country={photo.location.country}
         fav={fav}
         clickHandler={() => clickHandler(photo.id)}
+        modalToggle={modalToggle}
       />
     );
   });

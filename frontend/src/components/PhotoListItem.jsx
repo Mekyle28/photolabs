@@ -5,10 +5,10 @@ import PhotoFavButton from "./PhotoFavButton";
 
 
 const PhotoListItem = (props) => {
-  const {id, imageSource, profile, username, city, country, fav, clickHandler} = props
+  const { modalToggle, id, imageSource, profile, username, city, country, fav, clickHandler} = props
   
   return (
-    <div className="photo-list__item">
+    <div className="photo-list__item" onClick={modalToggle}>
       <span onClick={clickHandler}><PhotoFavButton fav={fav[id]} /></span>
       <img className="photo-list__image" src={imageSource} />
     
