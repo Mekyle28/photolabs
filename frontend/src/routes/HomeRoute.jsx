@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TopNavigation from 'components/TopNavigationBar';
 import PhotoList from 'components/PhotoList';
 import '../styles/HomeRoute.scss';
+import { FavPhotoExist } from 'helpers/favPhoto';
 
 const HomeRoute = (props) => {
   const {photos, topics} = props;
@@ -13,10 +14,12 @@ const HomeRoute = (props) => {
       {...prev, [photoId]: !prev[photoId]}
     ))
 };
+
+  const isFavPhotoExist = FavPhotoExist(fav);
   
   return (
     <div className="home-route">
-      <TopNavigation topics={topics} photos={photos} fav={fav} />
+      <TopNavigation topics={topics} photos={photos} fav={fav} isFavPhotoExist={isFavPhotoExist}/>
       <PhotoList photos={photos} fav={fav} clickHandler={clickHandler}/>
     </div>
   );
