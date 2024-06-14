@@ -4,10 +4,10 @@ import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
 function PhotoFavButton(props) {
-const {fav, clickHandler} = props
+const {fav} = props;
 
   return (
-    <div onClick={clickHandler} className="photo-list__fav-icon">
+    <div className="photo-list__fav-icon">
       <div className="photo-list__fav-icon-svg">
         <FavIcon selected={fav}/>
       </div>

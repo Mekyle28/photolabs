@@ -11,14 +11,14 @@ import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 const App = () => {
  const [showModal, setModal] = useState(false);
   //const photos = [...Array(3)].map((_, i) => <PhotoListItem key={i} sampleData={sampleDataForPhotoListItem}/> );
-  const modalToggle = (() => {
+  const modalToggle = () => {
     setModal(prev => !prev)
-  });
+  };
 
   return (
     <div>
       <HomeRoute photos={photos} topics={topics} modalToggle={modalToggle}/>
-      {showModal && <PhotoDetailsModal />}
+      {showModal && <PhotoDetailsModal closeModal={modalToggle}/>}
     </div>
   );
 };
