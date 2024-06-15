@@ -18,7 +18,7 @@ const {photos, fav, clickHandler, modalToggle} = props;
         country={photo.location.country}
         fav={fav}
         clickHandler={() => clickHandler(photo.id)}
-        modalToggle={modalToggle}
+        modalToggle={() => modalToggle(photo.id)}
       />
     );
   });
