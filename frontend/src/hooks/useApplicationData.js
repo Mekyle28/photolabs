@@ -1,9 +1,7 @@
 // import { useState } from "react";
 import { useReducer } from "react";
 
-export const useApplicationData = function () {
-  
-  const ACTIONS = {
+const ACTIONS = {
     FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
     FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
     SET_PHOTO_DATA: 'SET_PHOTO_DATA',
@@ -11,6 +9,8 @@ export const useApplicationData = function () {
     SELECT_PHOTO: 'SELECT_PHOTO',
     DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
   }
+
+export const useApplicationData = function () {
 
   const initialState = {
     fav: [], 
@@ -67,13 +67,6 @@ export const useApplicationData = function () {
   const onPhotoSelect = modalToggle;
 
   const updateToFavPhotoIds = handleFavPhoto;
-
-
-  const appData = {
-    onPhotoSelect,
-    updateToFavPhotoIds,
-    onClosePhotoDetailsModal,
-  };
 
   return { onPhotoSelect, updateToFavPhotoIds, onClosePhotoDetailsModal, state, ACTIONS}
 };
