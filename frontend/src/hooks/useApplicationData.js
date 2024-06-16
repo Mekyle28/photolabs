@@ -1,35 +1,79 @@
-import { useState } from "react";
+// import { useState } from "react";
+import { useReducer } from "react";
 
 export const useApplicationData = function () {
+  
+  const ACTIONS = {
+    FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
+    FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
+    SET_PHOTO_DATA: 'SET_PHOTO_DATA',
+    SET_TOPIC_DATA: 'SET_TOPIC_DATA',
+    SELECT_PHOTO: 'SELECT_PHOTO',
+    DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
+  }
 
-  const [fav, setFav] = useState({});
+  const initialState = {
+    fav: [], 
+    modal: {display:false, id: ""}
 
-  const clickHandler = (photoId) => {
-    setFav(prev => (
-      { ...prev, [photoId]: !prev[photoId] }
-    ))
+  }
+
+  const reducer = (state, action) => {
+
+  switch (action.type) {
+    case "FAV_PHOTO_ADDED":
+      return {
+        ...state,
+        fav: [...state.fav, action.value] 
+      };
+    case "FAV_PHOTO_REMOVED":
+      return {
+        ...state,
+        fav: state.fav.filter(id => id !== action.value)
+      };
+    case "SET_PHOTO_DATA":
+      return state;
+    case "SET_TOPIC_DATA":
+      return state;
+    case "SELECT_PHOTO":
+      return { ...state, modal: {display: !state.modal.display, id: action.value }};
+    case "DISPLAY_PHOTO_DETAILS":
+      return state;    
+    default:
+      throw new Error(
+        `Tried to reduce with unsupported action type: ${action.type}`
+      );
+    }
+  }
+
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+ 
+  const handleFavPhoto = (photoId) => {
+    if (state.fav.includes(photoId)) {
+      dispatch({ type: "FAV_PHOTO_REMOVED", value: photoId });
+    } else {
+      dispatch({ type: "FAV_PHOTO_ADDED", value: photoId });
+    }
   };
-
-  const [showModal, setModal] = useState({ display: false, id: "" });
-
 
   const modalToggle = (photoId) => {
-    setModal(prev => ({ ...prev, display: !prev.display, id: photoId }))
+    dispatch({type: "SELECT_PHOTO", value: photoId})
   };
-  const state = { modal: showModal, fav: fav };
-
-  const onPhotoSelect = modalToggle;
-
-  const updateToFavPhotoIds = clickHandler;
 
   const onClosePhotoDetailsModal = () => modalToggle("");
 
+  
+  const onPhotoSelect = modalToggle;
+
+  const updateToFavPhotoIds = handleFavPhoto;
+
+
   const appData = {
-    state,
     onPhotoSelect,
     updateToFavPhotoIds,
     onClosePhotoDetailsModal,
   };
 
-  return (appData)
+  return { onPhotoSelect, updateToFavPhotoIds, onClosePhotoDetailsModal, state, ACTIONS}
 };
