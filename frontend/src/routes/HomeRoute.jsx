@@ -7,14 +7,6 @@ import { FavPhotoExist } from 'helpers/favPhoto';
 const HomeRoute = (props) => {
   const {fav, clickHandler, photos, topics, modalToggle} = props;
   
-//   const [fav , setFav] = useState({});
-  
-//   const clickHandler = (photoId) => {
-//     setFav(prev => (
-//       {...prev, [photoId]: !prev[photoId]}
-//     ))
-// };
-
   const isFavPhotoExist = FavPhotoExist(fav);
   
   return (
