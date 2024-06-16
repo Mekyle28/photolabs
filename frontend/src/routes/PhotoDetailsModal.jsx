@@ -8,13 +8,13 @@ import PhotoListItem from 'components/PhotoListItem';
 
 
 const PhotoDetailsModal = (props) => {
-  const { photos, fav, clickHandler, closeModal, showModal} = props;
+  const { photos, clickHandler, closeModal, state} = props;
   
-  const modalMainImg = photos.find((photo) => photo.id === showModal.id);
-  console.log("showModal", showModal);
+  const modalMainImg = photos.find((photo) => photo.id === state.modal.id);
+  console.log("showModal", state.modal);
   console.log("modal photo*******", modalMainImg)
 
-  const favClickHandler = (() => clickHandler(showModal.id))
+  const favClickHandler = (() => clickHandler(state.modal.id))
 
 
   
@@ -31,14 +31,15 @@ const PhotoDetailsModal = (props) => {
           username={photo.user.name}
           city={photo.location.city}
           country={photo.location.country}
-          fav={fav}
+          fav={state.fav}
           clickHandler={() => clickHandler(photo.id)}
           modalToggle={() => console.log("onClick disabled")}
         />
       );
     });
 
-    console.log(modalSimilarPhotos);
+    const selected = state.fav.includes(modalMainImg.id);
+
   return (
     <div className="photo-details-modal">
       <button onClick={closeModal} className="photo-details-modal__close-button">
@@ -46,7 +47,7 @@ const PhotoDetailsModal = (props) => {
       </button>
       
       <div className="photo-details-modal__images">
-        <span onClick={favClickHandler} ><PhotoFavButton fav={fav[modalMainImg.id]} /></span>
+        <span onClick={favClickHandler} ><PhotoFavButton fav={selected} /></span>
         <img  className="photo-details-modal__image" src={modalMainImg.urls.regular} />
       
         <div className="photo-details-modal__photographer-details">
