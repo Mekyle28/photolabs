@@ -8,12 +8,13 @@ import { useApplicationData } from "hooks/useApplicationData";
 // Note: Rendering a single component to build components in isolation
 const App = () => {
   const {
-    state,
     onPhotoSelect,
     updateToFavPhotoIds,
     onClosePhotoDetailsModal,
+    state
   } = useApplicationData();
 
+  
   return (
     <div>
       <HomeRoute
@@ -27,9 +28,9 @@ const App = () => {
         <PhotoDetailsModal
           closeModal={onClosePhotoDetailsModal}
           photos={photos}
-          fav={state.fav}
+          state={state}
           clickHandler={updateToFavPhotoIds}
-          showModal={state.modal}
+          
         />
       )}
     </div>
