@@ -1,3 +1,6 @@
 export const FavPhotoExist = function(fav) {
-  return Object.values(fav).includes(true);
+  if (fav.length === 0) {
+  return false;
+  }
+  return true;
 }
