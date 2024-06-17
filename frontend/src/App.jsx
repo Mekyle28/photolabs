@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import HomeRoute from "routes/HomeRoute";
-import topics from "mocks/topics";
 import PhotoDetailsModal from "routes/PhotoDetailsModal";
 import { useApplicationData } from "hooks/useApplicationData";
 
@@ -18,7 +17,7 @@ const App = () => {
     <div>
       <HomeRoute
         photos={state.photoData}
-        topics={topics}
+        topics={state.topicData}
         modalToggle={onPhotoSelect}
         fav={state.fav}
         clickHandler={updateToFavPhotoIds}
