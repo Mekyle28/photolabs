@@ -1,5 +1,5 @@
-// import { useState } from "react";
 import { useReducer, useEffect } from "react";
+
 
 const ACTIONS = {
     FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
@@ -7,7 +7,8 @@ const ACTIONS = {
     SET_PHOTO_DATA: 'SET_PHOTO_DATA',
     SET_TOPIC_DATA: 'SET_TOPIC_DATA',
     SELECT_PHOTO: 'SELECT_PHOTO',
-    DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
+    DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
+    SET_PHOTO_BY_TOPIC: 'SET_PHOTO_BY_TOPIC'
   }
 
 export const useApplicationData = function () {
@@ -16,7 +17,8 @@ export const useApplicationData = function () {
     fav: [], 
     modal: {display:false, id: ""}, 
     photoData: [],
-    topicData: []
+    topicData: [], 
+    photoByTopicData: []
   }
 
   const reducer = (state, action) => {
@@ -36,6 +38,14 @@ export const useApplicationData = function () {
       return {...state, photoData: action.value};
     case "SET_TOPIC_DATA":
       return {...state, topicData: action.value};
+    case "SET_PHOTO_BY_TOPIC":
+      return {
+        ...state, 
+        photoByTopicData: [ 
+          ...state.photoByTopicData, 
+          {id: action.id, photos: action.value} 
+        ]
+      };
     case "SELECT_PHOTO":
       return { ...state, modal: {display: !state.modal.display, id: action.value }};
     case "DISPLAY_PHOTO_DETAILS":
@@ -68,6 +78,21 @@ export const useApplicationData = function () {
       });
   }, []);
 
+  useEffect(() => {
+    console.log("inside useEffect photoByTopic")
+    for (const topic of state.topicData) {
+      console.log("inside loop", topic)
+      fetch(`/api/topics/photos/${topic.id}`) // use a relative path for our GET request
+      .then(res => res.json())
+      .then(data => {
+        console.log("inside promise:", data, topic.id);
+        dispatch({ type: "SET_PHOTO_BY_TOPIC", value: data, id: topic.id })})
+      .catch(error => {
+        console.error(`Error fetching photos for topic ${topic.id}:`, error)
+      });
+    }
+  }, [state.topic]);
+
   const handleFavPhoto = (photoId) => {
     if (state.fav.includes(photoId)) {
       dispatch({ type: "FAV_PHOTO_REMOVED", value: photoId });
@@ -86,6 +111,7 @@ export const useApplicationData = function () {
   const onPhotoSelect = modalToggle;
 
   const updateToFavPhotoIds = handleFavPhoto;
+
 
   return { onPhotoSelect, updateToFavPhotoIds, onClosePhotoDetailsModal, state, ACTIONS}
 };
