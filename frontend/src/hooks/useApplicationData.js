@@ -33,9 +33,9 @@ export const useApplicationData = function () {
         fav: state.fav.filter(id => id !== action.value)
       };
     case "SET_PHOTO_DATA":
-      return state;
+      return {...state, photoData: action.value};
     case "SET_TOPIC_DATA":
-      return state;
+      return {...state, topicData: action.value};
     case "SELECT_PHOTO":
       return { ...state, modal: {display: !state.modal.display, id: action.value }};
     case "DISPLAY_PHOTO_DETAILS":
@@ -52,9 +52,20 @@ export const useApplicationData = function () {
  
   useEffect(() => {
     fetch('/api/photos') // use a relative path for our GET request
-    .then(res => res.json())
-    .then(data => console.log(data));
+      .then(res => res.json())
+      .then(data => dispatch({ type: "SET_PHOTO_DATA", value: data }))
+      .catch(error => {
+        console.error('Error fetching photo data:', error)
+      });
+  }, []);
 
+  useEffect(() => {
+    fetch('/api/topics') // use a relative path for our GET request
+      .then(res => res.json())
+      .then(data => dispatch({ type: "SET_TOPIC_DATA", value: data }))
+      .catch(error => {
+        console.error('Error fetching topic data:', error)
+      });
   }, []);
 
   const handleFavPhoto = (photoId) => {
