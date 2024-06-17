@@ -11,8 +11,6 @@ const PhotoDetailsModal = (props) => {
   const { photos, clickHandler, closeModal, state} = props;
   
   const modalMainImg = photos.find((photo) => photo.id === state.modal.id);
-  console.log("showModal", state.modal);
-  console.log("modal photo*******", modalMainImg)
 
   const favClickHandler = (() => clickHandler(state.modal.id))
 
