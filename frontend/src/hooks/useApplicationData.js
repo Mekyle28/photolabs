@@ -1,5 +1,5 @@
 // import { useState } from "react";
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 
 const ACTIONS = {
     FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
@@ -14,8 +14,9 @@ export const useApplicationData = function () {
 
   const initialState = {
     fav: [], 
-    modal: {display:false, id: ""}
-
+    modal: {display:false, id: ""}, 
+    photoData: [],
+    topicData: []
   }
 
   const reducer = (state, action) => {
@@ -49,6 +50,13 @@ export const useApplicationData = function () {
 
   const [state, dispatch] = useReducer(reducer, initialState);
  
+  useEffect(() => {
+    fetch('/api/photos') // use a relative path for our GET request
+    .then(res => res.json())
+    .then(data => console.log(data));
+
+  }, []);
+
   const handleFavPhoto = (photoId) => {
     if (state.fav.includes(photoId)) {
       dispatch({ type: "FAV_PHOTO_REMOVED", value: photoId });
