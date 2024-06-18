@@ -31,7 +31,8 @@
 
 
 .photo-details-modal__images {
-  margin-left: 36px;
+  margin-left: 4rem;
+  margin-right: 2rem;
   margin-top: 8px;
 }
 
@@ -39,8 +40,8 @@
 
 .photo-details-modal__top-bar {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-flow: row wrap;
+  justify-content: space-around;
   margin: 16px;
   margin-top: 8px;
   align-items: center;
@@ -60,6 +61,7 @@
 
 .photo-details-modal__photographer-location {
   color: #838383;
+  margin: 0;
 }
 .photo-details-modal__photographer-profile {
   object-fit: cover;
@@ -71,6 +73,10 @@
 }
 
 .photo-details-modal__photographer-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
   margin-top: 5px;
   font-weight: 700;
   font-size: 12px;
@@ -80,4 +86,8 @@
 .photo-details-modal__photographer-details {
   display: flex;
   font-size: 16px;
+}
+
+.photo-details-modal__user-name {
+  margin: 0;
 }
