@@ -20,8 +20,10 @@ PhotoLabs is a React-based single-page application (SPA) designed to provide use
 - **PostgreSQL:** Database used for storing and managing photo metadata.
 
 ## Images 
-!["Main Page View"]()
-!["Modal View with Similar Photos"]()
+!["Main Page View"](https://github.com/Mekyle28/photolabs/blob/main/frontend/doc/photoLab-main-page.png%20.png?raw=true)
+
+
+!["Modal View with Similar Photos"](https://github.com/Mekyle28/photolabs/blob/main/frontend/doc/photoLabs-modal.png?raw=true)
 
 # Getting Started
 
