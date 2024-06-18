@@ -1,25 +1,18 @@
 import React from 'react';
-
 import '../styles/PhotoDetailsModal.scss'
 import closeSymbol from '../assets/closeSymbol.svg';
-
 import PhotoFavButton from 'components/PhotoFavButton';
 import PhotoListItem from 'components/PhotoListItem';
 
 
 const PhotoDetailsModal = (props) => {
-  const { photos, clickHandler, closeModal, state} = props;
+  const { updateToFavPhotoIds, closeModal, state} = props;
   
-  const modalMainImg = photos.find((photo) => photo.id === state.modal.id);
-  console.log("showModal", state.modal);
-  console.log("modal photo*******", modalMainImg)
+  const modalMainImg = state.photoData.find((photo) => photo.id === state.modal.id);
 
-  const favClickHandler = (() => clickHandler(state.modal.id))
+  const favClickHandler = (() => updateToFavPhotoIds(state.modal.id))
 
-
-  
   // input array of photo or photos
-
     const modalSimilarPhotos = Object.values(modalMainImg.
     similar_photos).map((photo) => {
       return ( 
@@ -32,7 +25,7 @@ const PhotoDetailsModal = (props) => {
           city={photo.location.city}
           country={photo.location.country}
           fav={state.fav}
-          clickHandler={() => clickHandler(photo.id)}
+          updateToFavPhotoIds={() => updateToFavPhotoIds(photo.id)}
           modalToggle={() => console.log("onClick disabled")}
         />
       );
@@ -57,13 +50,9 @@ const PhotoDetailsModal = (props) => {
             <span className="photo-details-modal__photographer-location">{modalMainImg.location.city}, {modalMainImg.location.country}</span>
           </div>
         </div>
-        <header className='photo-details-modal__header'>Similar Photos</header>  
-
+        <header className='photo-details-modal__header'>Similar Photos</header>
       </div>
-      
-      
         <section className='photo-details-modal__images'>{modalSimilarPhotos}</section>
-      
     </div>
   )
 };

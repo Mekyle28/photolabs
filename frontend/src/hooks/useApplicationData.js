@@ -1,5 +1,5 @@
-// import { useState } from "react";
 import { useReducer, useEffect } from "react";
+
 
 const ACTIONS = {
     FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
@@ -7,7 +7,7 @@ const ACTIONS = {
     SET_PHOTO_DATA: 'SET_PHOTO_DATA',
     SET_TOPIC_DATA: 'SET_TOPIC_DATA',
     SELECT_PHOTO: 'SELECT_PHOTO',
-    DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
+    DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
   }
 
 export const useApplicationData = function () {
@@ -16,7 +16,8 @@ export const useApplicationData = function () {
     fav: [], 
     modal: {display:false, id: ""}, 
     photoData: [],
-    topicData: []
+    topicData: [], 
+    displayPhotos:[]
   }
 
   const reducer = (state, action) => {
@@ -36,10 +37,12 @@ export const useApplicationData = function () {
       return {...state, photoData: action.value};
     case "SET_TOPIC_DATA":
       return {...state, topicData: action.value};
+      
     case "SELECT_PHOTO":
       return { ...state, modal: {display: !state.modal.display, id: action.value }};
     case "DISPLAY_PHOTO_DETAILS":
-      return state;    
+      return {...state, displayPhotos: action.value};    
+
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -49,11 +52,15 @@ export const useApplicationData = function () {
 
 
   const [state, dispatch] = useReducer(reducer, initialState);
- 
+
+ // set both photoData and displayPhotos to images from api/photos
   useEffect(() => {
     fetch('/api/photos') // use a relative path for our GET request
       .then(res => res.json())
-      .then(data => dispatch({ type: "SET_PHOTO_DATA", value: data }))
+      .then(data => {
+        dispatch({ type: "SET_PHOTO_DATA", value: data })
+        dispatch({ type: "DISPLAY_PHOTO_DETAILS", value: data});
+      })
       .catch(error => {
         console.error('Error fetching photo data:', error)
       });
@@ -68,7 +75,21 @@ export const useApplicationData = function () {
       });
   }, []);
 
-  const handleFavPhoto = (photoId) => {
+  
+  const topicClickHandler = (id) => {
+    fetch(`/api/topics/photos/${id}`) // use a relative path for our GET request
+      .then(res => res.json())
+      .then(data => setDisplayPhotos(data))
+      .catch(error => {
+        console.error(`Error fetching photos for topic ${topic.id}:`, error)
+      });
+    }
+
+  const setDisplayPhotos = (data) => {
+    dispatch({type: "DISPLAY_PHOTO_DETAILS", value: data})
+  };
+
+  const updateToFavPhotoIds = (photoId) => {
     if (state.fav.includes(photoId)) {
       dispatch({ type: "FAV_PHOTO_REMOVED", value: photoId });
     } else {
@@ -80,12 +101,9 @@ export const useApplicationData = function () {
     dispatch({type: "SELECT_PHOTO", value: photoId})
   };
 
-  const onClosePhotoDetailsModal = () => modalToggle("");
+  const closeModal = () => modalToggle("");
 
-  
-  const onPhotoSelect = modalToggle;
+  const openModal = modalToggle;
 
-  const updateToFavPhotoIds = handleFavPhoto;
-
-  return { onPhotoSelect, updateToFavPhotoIds, onClosePhotoDetailsModal, state, ACTIONS}
+  return { openModal, updateToFavPhotoIds, closeModal, state, topicClickHandler, setDisplayPhotos}
 };

@@ -2,23 +2,20 @@ import React from "react";
 import TopicListItem from "./TopicListItem";
 import "../styles/TopicList.scss";
 
-
-
 const TopicList = (props) => {
-  const {topics} = props;
-  const topicArr = topics.map((topic) => {
-    return ( <TopicListItem 
-      key={topic["id"]}
-      slug={topic["slug"]}
-      title={topic["title"]}
+  const { topicClickHandler, state } = props;
+
+  const topicArr = state.topicData.map((topic) => {
+    return (
+      <TopicListItem
+        key={topic["id"]}
+        id={topic.id}
+        title={topic.title}
+        topicClickHandler={topicClickHandler}
       />
     );
-  })
-  return (
-    <div className="top-nav-bar__topic-list">
-      {topicArr}
-    </div>
-  );
+  });
+  return <div className="top-nav-bar__topic-list">{topicArr}</div>;
 };
 
 export default TopicList;
