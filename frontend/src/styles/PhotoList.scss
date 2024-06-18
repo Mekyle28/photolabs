@@ -1,10 +1,13 @@
 .photo-list {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   list-style-type: none;
   margin: 0;
   padding: 0;
+  background-color: #F4F3EA;
 }
 
 .photo-list:after {
