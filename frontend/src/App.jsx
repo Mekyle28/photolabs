@@ -17,11 +17,8 @@ const App = () => {
   return (
     <div>
       <HomeRoute
-        photos={state.photoData}
-        topics={state.topicData}
-        modalToggle={openModal}
-        fav={state.fav}
-        clickHandler={updateToFavPhotoIds}
+        openModal={openModal}
+        updateToFavPhotoIds={updateToFavPhotoIds}
         state={state}
         topicClickHandler={topicClickHandler}
         setDisplayPhotos={setDisplayPhotos}
@@ -30,7 +27,7 @@ const App = () => {
         <PhotoDetailsModal
           closeModal={closeModal}
           state={state}
-          clickHandler={updateToFavPhotoIds}          
+          updateToFavPhotoIds={updateToFavPhotoIds}          
         />
       )}
     </div>

@@ -6,8 +6,8 @@ import { FavPhotoExist } from "helpers/favPhoto";
 
 const HomeRoute = (props) => {
   const {
-    clickHandler,
-    modalToggle,
+    updateToFavPhotoIds,
+    openModal,
     state,
     topicClickHandler,
     setDisplayPhotos,
@@ -24,8 +24,8 @@ const HomeRoute = (props) => {
         setDisplayPhotos={setDisplayPhotos}
       />
       <PhotoList
-        clickHandler={clickHandler}
-        modalToggle={modalToggle}
+        updateToFavPhotoIds={updateToFavPhotoIds}
+        openModal={openModal}
         state={state}
       />
     </div>

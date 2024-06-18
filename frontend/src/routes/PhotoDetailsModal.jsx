@@ -6,11 +6,11 @@ import PhotoListItem from 'components/PhotoListItem';
 
 
 const PhotoDetailsModal = (props) => {
-  const { clickHandler, closeModal, state} = props;
+  const { updateToFavPhotoIds, closeModal, state} = props;
   
   const modalMainImg = state.photoData.find((photo) => photo.id === state.modal.id);
 
-  const favClickHandler = (() => clickHandler(state.modal.id))
+  const favClickHandler = (() => updateToFavPhotoIds(state.modal.id))
 
   // input array of photo or photos
     const modalSimilarPhotos = Object.values(modalMainImg.
@@ -25,7 +25,7 @@ const PhotoDetailsModal = (props) => {
           city={photo.location.city}
           country={photo.location.country}
           fav={state.fav}
-          clickHandler={() => clickHandler(photo.id)}
+          updateToFavPhotoIds={() => updateToFavPhotoIds(photo.id)}
           modalToggle={() => console.log("onClick disabled")}
         />
       );

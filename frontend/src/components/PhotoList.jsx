@@ -4,7 +4,7 @@ import PhotoListItem from "./PhotoListItem";
 
 
 const PhotoList = (props) => {
-const { clickHandler, modalToggle, state } = props;
+const { updateToFavPhotoIds, openModal, state } = props;
 
   const photoArray = state.displayPhotos.map((photo) => {
     return (
@@ -17,8 +17,8 @@ const { clickHandler, modalToggle, state } = props;
         city={photo.location.city}
         country={photo.location.country}
         fav={state.fav}
-        clickHandler={() => clickHandler(photo.id)}
-        modalToggle={() => modalToggle(photo.id)}
+        updateToFavPhotoIds={() => updateToFavPhotoIds(photo.id)}
+        openModal={() => openModal(photo.id)}
       />
     );
   });
