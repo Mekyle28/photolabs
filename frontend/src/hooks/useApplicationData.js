@@ -8,7 +8,6 @@ const ACTIONS = {
     SET_TOPIC_DATA: 'SET_TOPIC_DATA',
     SELECT_PHOTO: 'SELECT_PHOTO',
     DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
-    SET_PHOTO_BY_TOPIC: 'SET_PHOTO_BY_TOPIC'
   }
 
 export const useApplicationData = function () {
@@ -18,7 +17,6 @@ export const useApplicationData = function () {
     modal: {display:false, id: ""}, 
     photoData: [],
     topicData: [], 
-    photoByTopicData: [],
     displayPhotos:[]
   }
 
@@ -39,20 +37,6 @@ export const useApplicationData = function () {
       return {...state, photoData: action.value};
     case "SET_TOPIC_DATA":
       return {...state, topicData: action.value};
-    case "SET_PHOTO_BY_TOPIC":
-      const idArr = state.photoByTopicData.map((topic) => {
-        return topic.id
-      })
-      if (!idArr.includes(action.id)) {
-        return {
-        ...state, 
-        photoByTopicData: [ 
-          ...state.photoByTopicData, 
-          {id: action.id, photos: action.value} 
-        ]}
-      } else {
-        return {...state};
-      }
       
     case "SELECT_PHOTO":
       return { ...state, modal: {display: !state.modal.display, id: action.value }};
@@ -91,43 +75,6 @@ export const useApplicationData = function () {
       });
   }, []);
 
-  useEffect(() => {
-    const fetchPhotoByTopic = async () => {
-      for (const topic of state.topicData) {
-        try {
-          const response = await fetch(`/api/topics/photos/${topic.id}`);
-          if (!response.ok) {
-            throw new Error(`Failed to fetch photos for topic ${topic.id}`);
-          }
-          const data = await response.json();
-          dispatch({ type: "SET_PHOTO_BY_TOPIC", value: data, id: topic.id });
-        } catch (error) {
-          console.error(`Error fetching photos for topic ${topic.id}:`, error);
-        }
-      }
-    };
-  
-    if (state.topicData.length > 0) {
-      fetchPhotoByTopic();
-    }
-  }, [state.topicData]);
-  
-  // useEffect(() => {
-  //   const fetchPhotoByTopic = async () => {
-  //   console.log("inside useEffect photoByTopic")
-  //   for (const topic of state.topicData) {
-  //     console.log("inside loop", topic)
-  //     await fetch(`/api/topics/photos/${topic.id}`) // use a relative path for our GET request
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       console.log("inside promise:", data, topic.id);
-  //       dispatch({ type: "SET_PHOTO_BY_TOPIC", value: data, id: topic.id })})
-  //     .catch(error => {
-  //       console.error(`Error fetching photos for topic ${topic.id}:`, error)
-  //     });
-  //   }
-  // }
-  // }, []);
   
   const topicClickHandler = (id) => {
     fetch(`/api/topics/photos/${id}`) // use a relative path for our GET request
