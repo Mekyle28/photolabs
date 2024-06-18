@@ -11,6 +11,7 @@ const HomeRoute = (props) => {
     state,
     topicClickHandler,
     setDisplayPhotos,
+    favPhotoArrObj
   } = props;
 
   const isFavPhotoExist = FavPhotoExist(state.fav);
@@ -22,6 +23,7 @@ const HomeRoute = (props) => {
         state={state}
         topicClickHandler={topicClickHandler}
         setDisplayPhotos={setDisplayPhotos}
+        favPhotoArrObj={favPhotoArrObj}
       />
       <PhotoList
         updateToFavPhotoIds={updateToFavPhotoIds}

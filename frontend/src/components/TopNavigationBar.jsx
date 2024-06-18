@@ -4,7 +4,7 @@ import "../styles/TopNavigationBar.scss"
 import FavBadge from "./FavBadge";
 
 const TopNavigation = (props) => {
-  const { isFavPhotoExist, state, topicClickHandler, setDisplayPhotos } = props;
+  const { isFavPhotoExist, state, topicClickHandler, setDisplayPhotos, favPhotoArrObj} = props;
 
   return (
     <div className="top-nav-bar">
@@ -12,7 +12,7 @@ const TopNavigation = (props) => {
         PhotoLabs
       </span>
       <TopicList state={state} topicClickHandler={topicClickHandler} />
-      <FavBadge isFavPhotoExist={isFavPhotoExist} />
+      <FavBadge isFavPhotoExist={isFavPhotoExist} favPhotoArrObj={favPhotoArrObj} state={state}/>
     </div>
   );
 };

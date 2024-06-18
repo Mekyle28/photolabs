@@ -11,6 +11,7 @@ const App = () => {
     closeModal,
     topicClickHandler,
     setDisplayPhotos, 
+    favPhotoArrObj,
     state
   } = useApplicationData();
 
@@ -22,6 +23,7 @@ const App = () => {
         state={state}
         topicClickHandler={topicClickHandler}
         setDisplayPhotos={setDisplayPhotos}
+        favPhotoArrObj={favPhotoArrObj}
       />
       {state.modal.display && (
         <PhotoDetailsModal

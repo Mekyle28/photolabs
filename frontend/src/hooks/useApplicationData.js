@@ -79,9 +79,30 @@ export const useApplicationData = function () {
         console.error(`Error fetching photos for topic ${topic.id}:`, error)
       });
     }
-
   const setDisplayPhotos = (data) => {
-    dispatch({type: "DISPLAY_PHOTO_DETAILS", value: data})
+      dispatch({type: "DISPLAY_PHOTO_DETAILS", value: data})
+    };
+
+
+  // const favPhotoArrObj = (state) => {
+  //   const favPhotos = state.photoData.map((photo) => {
+  //     if (state.fav.includes(photo.id)) {
+  //       return photo;
+  //     }
+  //   })
+  //   console.log("fav photos", favPhotos);
+  //   setDisplayPhotos(favPhotos);
+  // } 
+
+  const favPhotoArrObj = (state) => {
+    // Filter photoData to include only favorites
+    const favPhotos = state.photoData.filter((photo) => state.fav.includes(photo.id));
+  
+    // Log filtered favorite photos
+    console.log("fav photos", favPhotos);
+  
+    // Update display photos in state
+    setDisplayPhotos(favPhotos);
   };
 
   const updateToFavPhotoIds = (photoId) => {
@@ -99,5 +120,5 @@ export const useApplicationData = function () {
   const closeModal = () => modalToggle("");
   const openModal = modalToggle;
 
-  return { openModal, updateToFavPhotoIds, closeModal, state, topicClickHandler, setDisplayPhotos}
+  return { openModal, updateToFavPhotoIds, closeModal, state, topicClickHandler, setDisplayPhotos, favPhotoArrObj}
 };
