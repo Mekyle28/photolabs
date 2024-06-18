@@ -13,7 +13,10 @@ const PhotoListItem = (props) => {
       <img  onClick={openModal} className="photo-list__image" src={imageSource} />
     
       <div className="photo-list__user-details">
-        <img className="photo-list__user-profile" src={profile}/>
+        <span className="photo-list__user-div">
+          <img className="photo-list__user-profile" src={profile}/>
+        </span>
+        
         <div className="photo-list__user-info">
           <p className="photo-list__user-name" >{username}</p>
           <p className="photo-list__user-location">{city}, {country}</p>

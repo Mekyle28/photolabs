@@ -25,7 +25,9 @@
 }
 
 .photo-details-modal__image {
-  max-width: 95%;
+  width: 55em;
+  height: 35em;
+  object-fit: cover;
   border-radius: 8px;
 }
 

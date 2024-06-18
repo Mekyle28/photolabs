@@ -12,7 +12,7 @@ const PhotoDetailsModal = (props) => {
 
   const favClickHandler = (() => updateToFavPhotoIds(state.modal.id))
 
-  // give the values of each similar photo from the main modal image object to photoListItem and return an array of pictures to render  
+  // input array of photo or photos
     const modalSimilarPhotos = Object.values(modalMainImg.
     similar_photos).map((photo) => {
       return ( 
@@ -46,13 +46,13 @@ const PhotoDetailsModal = (props) => {
         <div className="photo-details-modal__photographer-details">
           <img className="photo-details-modal__photographer-profile" src={modalMainImg.user.profile}/>
           <div className="photo-details-modal__photographer-info">
-            <p className="photo-details-modal__user-name" >{modalMainImg.user.name}</p>
+            <p className="" >{modalMainImg.user.name}</p>
             <span className="photo-details-modal__photographer-location">{modalMainImg.location.city}, {modalMainImg.location.country}</span>
           </div>
         </div>
         <header className='photo-details-modal__header'>Similar Photos</header>
       </div>
-        <section className='photo-details-modal__top-bar'>{modalSimilarPhotos}</section>
+        <section className='photo-details-modal__images'>{modalSimilarPhotos}</section>
     </div>
   )
 };
